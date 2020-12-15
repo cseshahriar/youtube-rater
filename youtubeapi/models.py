@@ -20,5 +20,9 @@ class Rating(models.Model):
     stars = models.IntegerField()
     comments = models.TextField(max_length=300)
 
+    class Meta:
+        unique_together = (('user', 'video'),)
+        index_together = (('user', 'video'),)
+
     def __str__(self):
         return self.stars
