@@ -10,6 +10,17 @@ class Video(models.Model):
     subcategory = models.TextField(max_length=50)
     author = models.TextField(max_length=50)
 
+    @property
+    def rating_average(self):
+        sum = 0
+        ratings = Rating.objects.filter(video=self)
+        for rating in ratings:
+            sum = sum + rating.stars
+        if len(ratings) > 0:
+            return sum/len(ratings)
+        else:
+            return 0
+
     def __str__(self):
         return self.title
 
