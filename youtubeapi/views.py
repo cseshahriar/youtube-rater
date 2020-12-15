@@ -64,6 +64,7 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (AllowAny,)
+    authentication_classes = (TokenAuthentication,)
 
     # delete
     def destroy(self, request, *args, **kwargs):
