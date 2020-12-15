@@ -60,5 +60,6 @@ export default {
 <style scoped>
 .nicefont {
   font-size: 18px;
+  font-family: 'Alatsi', sans-serif;
 }
 </style>
