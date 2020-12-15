@@ -1,27 +1,22 @@
 <template>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-5 text-center">
-                <h4>Welcome to Youtueb Rater</h4>
+            <div class="col-md-6 offset-3">
+                <h4 class="mb-3">Welcome to Youtueb Rater</h4>
                 <button v-on:click="getVideos" class="btn btn-success">Get Videos</button>
             </div>
+        </div>
 
-            <div class="col-md-7">
-              <div class="row">
-                  <div class="col-md-4" v-for="video in videos" v-bind:key="video.id">
-                      <p>{{ video.title }}</p>
-                      <iframe width="250" height="250" :src="video.url" frameborder="0" 
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                      
-                      <p>{{ video.description }}</p>
-                      Rating: {{ video.rating_average }} <br>
-                      <button class="btn btn-sm btn-primary mt-2 mb-3">Details</button>
-                  </div>
-              </div>
-
-              <p v-for="video in videos" v-bind:key="video.id" class="nicefont">
-              </p>
-            </div>
+        <div class="row mt-3">
+          <div class="col-md-4" v-for="video in videos" v-bind:key="video.id">
+              <p>{{ video.title }}</p>
+              <iframe width="400" height="300" :src="video.url" frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              
+              <p>{{ video.description }}</p>
+              Rating: {{ video.rating_average }} <br>
+              <button class="btn btn-sm btn-primary mt-2 mb-3">Details</button>
+          </div>
         </div>
 
     </div>
