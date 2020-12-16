@@ -4,7 +4,7 @@
             <div class="card w-100">
                 <div class="card-body">
                     <h4 class="card-title">Create Video</h4>
-                    <form id="formvideo">
+                    <form id="formvideo" @submit.prevent="checkForm">
                         <div class="row">
                             <div class="col">
                                 <label for="title">Title</label>
@@ -12,7 +12,7 @@
                             </div>
 
                             <div class="col">
-                                <label for="description">Title</label>
+                                <label for="description">Description</label>
                                 <textarea class="form-control" name="description" id="description" v-model="description" rows="2"></textarea>
                             </div>
 
@@ -54,6 +54,31 @@ export default {
     name:'CreateVideo',
     components: {
 
+    },
+    data() {
+        return {
+            title: null,
+            description: null,
+            url: null,
+            category:null,
+            subcategory:null,
+            author:null
+        }
+    },
+    methods: {
+        checkForm() {
+            axios.post('http://localhost:8181/api/videos/', {
+                title: this.title,
+                description: this.description,
+                url: this.url,
+                category: this.category,
+                subcategory: this.subcategory,
+                author: this.author
+
+            })
+            .then( res => console.log(res))
+            .catch( err => console.log(err))
+        }
     }
 }
 </script>
