@@ -3,6 +3,11 @@
         <div class="row">
             <div class="col-md-6 offset-3">
                 <h4 class="mb-3">Welcome to Youtueb Rater</h4>
+                
+                <form @submit.prevent="createNewVideo()" class="mb-3">
+                  <button class="btn btn-info">Create New</button>
+                </form>
+
                 <button v-on:click="getVideos" class="btn btn-success">Get Videos</button>
             </div>
         </div>
@@ -14,21 +19,21 @@
                       <p>{{ video.title }}</p>
                       <button class="btn btn-sm btn-primary mb-3" 
                       v-on:click="VideoDetail(video)">Video Detail</button>
-
                   </div>
-
               </div>
            </div>
 
            <div class="col-md-6">
-                  <VideoDetail v-bind:videoDetail="videoDetail" />
-                  <hr>
+                <VideoDetail v-bind:videoDetail="videoDetail" />
+                <hr>
            </div>
         </div>
 
         <div class="row">
           <div class="col-lg-10 offset-1">
-            <CreateVideo/>
+            <div v-if="createNew">
+              <CreateVideo/>
+            </div>
           </div>
         </div>
 
@@ -51,11 +56,12 @@ export default {
     return {
         videos: [],
         videoDetail: Object,
+        createNew:""
     }
   },
   methods: {
     getVideos() {
-        axios.get('http://0.0.0.0:8181/api/videos/')
+        axios.get('http://localhost:8181/api/videos/')
         .then( res => (this.videos = res.data) )
         .catch(err => console.log(err))
         console.log(this.videos) 
@@ -64,10 +70,15 @@ export default {
     VideoDetail(video) {
       this.videoDetail = video
       console.log(this.videoDetail)
+    },
+    createNewVideo() {
+      this.createNew = !this.createNew // toggle
     }
   },
   created () {
-    this.getVideos()
+    // work a page init
+    this.getVideos();
+    createNew:false;
   }
 }
 </script>
