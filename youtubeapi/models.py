@@ -21,6 +21,14 @@ class Video(models.Model):
         else:
             return 0
 
+    @property
+    def comment_list(self):
+        comments = Rating.objects.filter(video=self)
+        comment_list = []
+        for comment in comments:
+            comment_list.append(comment.comments)
+        return comment_list
+
     def __str__(self):
         return self.title
 
