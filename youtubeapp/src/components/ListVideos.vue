@@ -22,7 +22,14 @@
 
            <div class="col-md-6">
                   <VideoDetail v-bind:videoDetail="videoDetail" />
+                  <hr>
            </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-10 offset-1">
+            <CreateVideo/>
+          </div>
         </div>
 
     </div>
@@ -32,11 +39,13 @@
 // @ is an alias to /sc
 import axios from 'axios'
 import VideoDetail from './VideoDetail'
+import CreateVideo from './CreateVideo'
 
 export default {
   name: 'home',
   components: {
     VideoDetail,
+    CreateVideo
   },
   data () {
     return {

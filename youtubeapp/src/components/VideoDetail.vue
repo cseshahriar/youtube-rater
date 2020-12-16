@@ -9,9 +9,7 @@
               <iframe width="350" height="200" :src="videoDetail.url" frameborder="0" 
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               <br>
-                <p>Category: {{ videoDetail.category }}</p>
-                <p>Subcategory: {{ videoDetail.subcategory }}</p>
-                <p>Rating: {{ videoDetail.rating_average }}</p>
+                <p>Category: {{ videoDetail.category }} , Subcategory: {{ videoDetail.subcategory }}, Rating: {{ videoDetail.rating_average }}</p>
                 <p>Comments: {{ videoDetail.comment_list }}</p>
           </div>
         </div>
