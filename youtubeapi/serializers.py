@@ -14,7 +14,8 @@ class VideoSerializer(serializers.ModelSerializer):
             'category',
             'subcategory',
             'author',
-            'rating_average'
+            'rating_average',
+            'comment_list'
         ]
         extra_kwargs = {'url': {'required': True}}
 

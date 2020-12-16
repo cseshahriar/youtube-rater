@@ -8,15 +8,21 @@
         </div>
 
         <div class="row mt-3">
-          <div class="col-md-4" v-for="video in videos" v-bind:key="video.id">
-              <p>{{ video.title }}</p>
-              <iframe width="400" height="300" :src="video.url" frameborder="0" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-              
-              <p>{{ video.description }}</p>
-              Rating: {{ video.rating_average }} <br>
-              <button class="btn btn-sm btn-primary mt-2 mb-3">Details</button>
-          </div>
+           <div class="col-md-6">
+              <div class="row mt-5">
+                  <div class="col-md-4" v-for="video in videos" v-bind:key="video.id">
+                      <p>{{ video.title }}</p>
+                      <button class="btn btn-sm btn-primary mb-3" 
+                      v-on:click="VideoDetail(video)">Video Detail</button>
+
+                  </div>
+
+              </div>
+           </div>
+
+           <div class="col-md-6">
+                  <VideoDetail v-bind:videoDetail="videoDetail" />
+           </div>
         </div>
 
     </div>
@@ -25,15 +31,17 @@
 <script>
 // @ is an alias to /sc
 import axios from 'axios'
+import VideoDetail from './VideoDetail'
 
 export default {
   name: 'home',
   components: {
-    
+    VideoDetail,
   },
   data () {
     return {
         videos: [],
+        videoDetail: Object,
     }
   },
   methods: {
@@ -43,6 +51,10 @@ export default {
         .catch(err => console.log(err))
         console.log(this.videos) 
         console.log('test')
+    },
+    VideoDetail(video) {
+      this.videoDetail = video
+      console.log(this.videoDetail)
     }
   },
   created () {
