@@ -26,7 +26,8 @@ class Video(models.Model):
 
 
 class Rating(models.Model):
-    video = models.ForeignKey(Video, on_delete=models.CASCADE)
+    video = models.ForeignKey(Video, on_delete=models.CASCADE,
+                              related_name='video_stars')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     stars = models.IntegerField()
     comments = models.TextField(max_length=300)
