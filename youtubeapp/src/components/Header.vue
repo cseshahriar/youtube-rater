@@ -21,7 +21,7 @@
         </li>
       </ul>
 
-       <form class="d-flex" @submit.prevent="login">
+      <form class="d-flex" @submit.prevent="login" v-if="token==null">
         <input class="form-control me-2" v-model="username" id="username" name="username" type="text" placeholder="Username">
         <input class="form-control me-2" v-model="password" id="password" name="password" type="password" placeholder="Password">
         <button class="btn btn-outline-success" type="submit">Login</button>
@@ -33,10 +33,36 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
     name: 'Header',
     components: {
 
+    },
+    data() {
+      return {
+        username: '',
+        password: '',
+        token:localStorage.getItem('user-token') || null,
+      }
+    },
+    methods: {
+        login() {
+            axios.post('http://localhost:8181/api/auth/', {
+              username: this.username,
+              password: this.password,
+            })
+            .then( res =>  {
+                this.token = res.data.token
+                console.log(this.token)
+                localStorage.setItem('user-token', res.data.token)
+              }
+            )
+            .catch( err => {
+              localStorage.removeItem('user-token')
+            })
+        }
     }
 }
 </script>
