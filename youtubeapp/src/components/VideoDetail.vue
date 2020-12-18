@@ -8,10 +8,13 @@
               <p>Description: {{ videoDetail.description }}</p>
               <iframe width="350" height="200" :src="videoDetail.url" frameborder="0" 
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-              <br>
+                <br>
                 <p>Category: {{ videoDetail.category }} , Subcategory: {{ videoDetail.subcategory }}, Rating: {{ videoDetail.rating_average }}</p>
                 <p>Comments: {{ videoDetail.comment_list }}</p>
-                <form id="formvideo" @submit.prevent="giveRating">
+                <!-- $emit() create event, for component communication -->
+                <form id="formvideo" @submit.prevent="giveRating"
+                @submit="$emit('updated', videoDetail)"
+                >
                   <div class="form-group">
                     <label for="">Give a Rating</label>
                     <input type="text" name="stars" id="stars" v-model="stars" class="form-control">

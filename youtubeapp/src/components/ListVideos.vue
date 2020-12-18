@@ -17,6 +17,7 @@
               <div class="row mt-5">
                   <div class="col-md-4" v-for="video in videos" v-bind:key="video.id">
                       <p>{{ video.title }}</p>
+                      Rating: {{ video.rating_average }}<br>
                       <button class="btn btn-sm btn-primary mb-3" 
                       v-on:click="VideoDetail(video)">Video Detail</button>
                   </div>
@@ -24,7 +25,8 @@
            </div>
 
            <div class="col-md-6">
-                <VideoDetail v-bind:videoDetail="videoDetail" />
+                <!-- listen the event from videoDetail $emmit-->
+                <VideoDetail v-bind:videoDetail="videoDetail" v-on:updated="updateVideos()"/>
                 <hr>
            </div>
         </div>
@@ -73,6 +75,15 @@ export default {
     },
     createNewVideo() {
       this.createNew = !this.createNew // toggle
+    },
+    updateVideos(video) {
+      this.timer = setTimeout(() => {
+          axios.get('http://localhost:8181/api/videos/')
+          .then( res => (this.videos = res.data) )
+          .catch(err => console.log(err))
+          console.log(this.videos) 
+          console.log('test')
+      }, 600);
     }
   },
   created () {
