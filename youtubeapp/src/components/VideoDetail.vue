@@ -11,6 +11,19 @@
               <br>
                 <p>Category: {{ videoDetail.category }} , Subcategory: {{ videoDetail.subcategory }}, Rating: {{ videoDetail.rating_average }}</p>
                 <p>Comments: {{ videoDetail.comment_list }}</p>
+                <form id="formvideo" @submit.prevent="giveRating">
+                  <div class="form-group">
+                    <label for="">Give a Rating</label>
+                    <input type="text" name="stars" id="stars" v-model="stars" class="form-control">
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="">Comments</label>
+                    <textarea type="text" name="comments" id="comments" v-model="comments" rows="3" class="form-control"></textarea>
+                  </div>
+
+                  <button class="btn btn-sm btn-success" type="submit">Submit Rating</button>
+                </form>
                 <button class="btn btn-danger mt-2 mb-3" v-on:click="videoDelete(videoDetail)">Delete</button>
           </div>
         </div>
@@ -32,9 +45,30 @@ export default {
   },
   data () {
     return {
+      stars: '',
+      comments: ''
     }
   },
   methods: {
+    giveRating(stars, comments) {
+      this.token = TokenService.getToken()
+      var postData = {
+        stars : this.stars,
+        comments: this.comments
+      };
+      
+      let axiosConfig = {
+        headers: {
+          'Authorization': 'Token '+ this.token 
+        }
+      };
+
+      axios.post(`http://localhost:8181/api/videos/${this.videoDetail.id}/rate_video/`, 
+        postData, axiosConfig
+      )
+      .then(res => console.log(res.data))
+      .catch( err => console.log(err))
+    },
     videoDelete(videoDetail) {
       console.log(videoDetail.id, 'on delete id')
       console.log(this.token, 'on delete')
