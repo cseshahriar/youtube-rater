@@ -11,6 +11,7 @@
               <br>
                 <p>Category: {{ videoDetail.category }} , Subcategory: {{ videoDetail.subcategory }}, Rating: {{ videoDetail.rating_average }}</p>
                 <p>Comments: {{ videoDetail.comment_list }}</p>
+                <button class="btn btn-danger mt-2 mb-3" v-on:click="videoDelete(videoDetail)">Delete</button>
           </div>
         </div>
 
@@ -20,20 +21,44 @@
 <script>
 // @ is an alias to /sc
 import axios from 'axios'
+import { TokenService } from '../storage/service'
 
 export default {
   name: 'VideoDetail',
   components: {
-      },
+  },
   props: {
       videoDetail: {}
   },
   data () {
     return {
-       
     }
   },
   methods: {
+    videoDelete(videoDetail) {
+      console.log(videoDetail.id, 'on delete id')
+      console.log(this.token, 'on delete')
+      var postData = {
+        video: this.videoDetail.id,
+      };
+
+      let axiosConfig = {
+        headers: {
+          'Authorization': 'Token '+ this.token 
+        }
+      };
+
+      axios.delete(`http://localhost:8181/api/videos/${this.videoDetail.id}`, 
+        axiosConfig
+      )
+      .then( res => console.log(res.data))
+      .catch(err => console.log(err))
+    }
+  }, 
+  created() {
+    let token
+    this.token = TokenService.getToken()
+    console.log(this.token, ' created method')
   }
 }
 </script>
