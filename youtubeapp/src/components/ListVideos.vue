@@ -37,7 +37,7 @@
         <div class="row">
           <div class="col-lg-10 offset-1">
             <div v-if="createNew">
-              <CreateVideo/>
+              <CreateVideo v-on:createVideo="updateVideos"/>
             </div>
           </div>
         </div>

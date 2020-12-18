@@ -39,7 +39,9 @@
                             </div>
                         </div>
                         
-                        <button type="submit" class="btn btn-primary mt-3">Create Video</button>
+                        <button type="submit" class="btn btn-primary mt-3"
+                        @click="$emit('createVideo')"
+                        >Create Video</button>
                     </form>
                 </div>
             </div>
