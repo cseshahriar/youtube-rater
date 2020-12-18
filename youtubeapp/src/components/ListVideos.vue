@@ -26,7 +26,10 @@
 
            <div class="col-md-6">
                 <!-- listen the event from videoDetail $emmit-->
-                <VideoDetail v-bind:videoDetail="videoDetail" v-on:updated="updateVideos()"/>
+                <VideoDetail v-bind:videoDetail="videoDetail"
+                 v-on:updated="updateVideos()"
+                 v-on:deleted="deleteVideo()"
+                 />
                 <hr>
            </div>
         </div>
@@ -84,6 +87,15 @@ export default {
           console.log(this.videos) 
           console.log('test')
       }, 600);
+    },
+    deleteVideo(video) {
+      this.timer = setTimeout(() => {
+          axios.get('http://localhost:8181/api/videos/')
+          .then( res => (this.videos = res.data) )
+          .catch(err => console.log(err))
+          console.log(this.videos) 
+          console.log('test')
+      }, 600)
     }
   },
   created () {

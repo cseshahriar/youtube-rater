@@ -27,7 +27,10 @@
 
                   <button class="btn btn-sm btn-success" type="submit">Submit Rating</button>
                 </form>
-                <button class="btn btn-danger mt-2 mb-3" v-on:click="videoDelete(videoDetail)">Delete</button>
+                <button class="btn btn-danger mt-2 mb-3"
+                 v-on:click="videoDelete(videoDetail)"
+                 @click="$emit('deleted', videoDetail)"
+                 >Delete</button>
           </div>
         </div>
 
