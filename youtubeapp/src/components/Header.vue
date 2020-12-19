@@ -15,16 +15,16 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Registration</a>
         </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="#">Logout</a>
-        </li>
       </ul>
 
       <form class="d-flex" @submit.prevent="login" v-if="token==null">
         <input class="form-control me-2" v-model="username" id="username" name="username" type="text" placeholder="Username">
         <input class="form-control me-2" v-model="password" id="password" name="password" type="password" placeholder="Password">
         <button class="btn btn-outline-success" type="submit">Login</button>
+      </form>
+
+      <form @submit.prevent="logout" v-if="token!=null">
+        <button class="btn btn-danger" type="submit">Logout</button>
       </form>
 
     </div>
@@ -62,6 +62,10 @@ export default {
             .catch( err => {
               localStorage.removeItem('user-token')
             })
+        },
+        logout() {
+          localStorage.removeItem('user-token')
+          this.token = null
         }
     }
 }
