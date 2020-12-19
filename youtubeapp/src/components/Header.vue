@@ -13,10 +13,10 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="#">Registration</a>
+          <router-link class="nav-link" to="/register">Register</router-link> 
         </li>
       </ul>
-
+      
       <form class="d-flex" @submit.prevent="login" v-if="token==null">
         <input class="form-control me-2" v-model="username" id="username" name="username" type="text" placeholder="Username">
         <input class="form-control me-2" v-model="password" id="password" name="password" type="password" placeholder="Password">
@@ -26,7 +26,7 @@
       <form @submit.prevent="logout" v-if="token!=null">
         <button class="btn btn-danger" type="submit">Logout</button>
       </form>
-
+      
     </div>
   </div>
 </nav>
@@ -66,6 +66,9 @@ export default {
         logout() {
           localStorage.removeItem('user-token')
           this.token = null
+        },
+        register() {
+          console.log('router')
         }
     }
 }
